@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -29,9 +30,10 @@ class TimerService : Service() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(1, buildNotification("Timer started: 00:00:00"))
+            startForeground(1, buildNotification("Timer started: 00:00:00"), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         }
         Log.e("ayyyyyaa","hfhf${intent?.action}")
 

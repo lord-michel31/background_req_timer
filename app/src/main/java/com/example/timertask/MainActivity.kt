@@ -4,10 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.timertask.databinding.ActivityMainBinding
@@ -47,10 +49,11 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
         Log.e("com.example.timertask.TimerService", "Service started")
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
         val intentFilter = IntentFilter("TIMER_UPDATED")
-        registerReceiver(timerUpdateReceiver, intentFilter)
+        registerReceiver(timerUpdateReceiver, intentFilter, RECEIVER_NOT_EXPORTED)
     }
 
     override fun onStop() {
